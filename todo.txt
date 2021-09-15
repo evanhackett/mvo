@@ -1,0 +1,8 @@
+split out rra vs crra into 2 different scripts.
+
+There should be 2 rra scripts:
+
+1. asset allocation based
+2. put-money-at-risk-for-chance-of-doubling based
+
+And 1 crra script which accepts output from either of the above.
