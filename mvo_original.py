@@ -43,8 +43,8 @@ factors = np.array([
 ])
 
 factor_labels = list(factors[:, 0])
-factor_mean = factors[:, 1].astype(np.float)
-factor_std = factors[:, 2].astype(np.float)
+factor_mean = factors[:, 1].astype(float)
+factor_std = factors[:, 2].astype(float)
 
 factor_mean = np.array(factor_mean) / 100
 factor_std = np.array(factor_std) / 100
@@ -129,7 +129,7 @@ for k, v in correlations.items():
 
 class Model:
     def __init__(self):
-        self.init_weights = np.zeros(len(asset_labels), dtype=np.float)
+        self.init_weights = np.zeros(len(asset_labels), dtype=float)
         self.init_weights[0] = 1
         self.init_weights[:len(asset_labels)] = 1.0/len(asset_labels)
 
@@ -216,7 +216,7 @@ def plot_utility_function(X, Y, gamma, label, color):
 
 plt.subplots(2, 1, figsize=(8, 7))
 
-plt.subplot('211')
+plt.subplot(211)
 plt.title('efficient frontier, for various coefficients of relative risk aversion')
 plt.ylabel('expected utility')
 plt.xlabel('risk (annualized stddev)')
@@ -242,7 +242,7 @@ plt.text(.30, .005, 'γ = 0 is the efficient frontier\nγ = 1 maximizes geometri
 plt.legend(loc='upper left')
 
 
-plt.subplot('212')
+plt.subplot(212)
 plt.title('asset weights')
 plt.ylabel('asset weight')
 plt.xlabel('risk (annualized stddev)')
