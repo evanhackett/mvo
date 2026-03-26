@@ -1,4 +1,6 @@
 # coding=utf-8
+import argparse
+import json
 import subprocess
 import sys
 import numpy as np
@@ -34,22 +36,30 @@ def asset_def(
     }
 
 
-# return assumptions
-# monthly arithmetic return, monthly std
-factors = np.array(
-    [
-        ["TER", -1 / 12.0, 0],
-        ["MKT", 0.53, 4.44],
-        # US factor data, 1963 - july 2020
-        ["SmB", 0.21 / 2, 3.02],  # estimate only half the historical factor premia
-        ["HmL", 0.25 / 2, 2.87],  # estimate only half the historical factor premia
-        ["RmW", 0.26 / 2, 2.15],  # estimate only half the historical factor premia
-        ["CmA", 0.26 / 2, 1.99],  # estimate only half the historical factor premia
-        ["MOM", 0.66 / 4, 4.7],  # estimate only a quarter the historical factor premia
-        ["ITT", 1.66 / 12, 5.67 / 12**0.5],
-        ["LTT", 2.01 / 12, 9.79 / 12**0.5],
-    ]
-)
+_parser = argparse.ArgumentParser()
+_parser.add_argument("--factors", type=str, default=None,
+                     help="Path to factors JSON produced by fetch_factors.py")
+_args = _parser.parse_args()
+
+# return assumptions: monthly arithmetic return and monthly std (both in %)
+_HARDCODED_FACTORS = [
+    ["TER", -1 / 12.0, 0],
+    ["MKT", 0.53, 4.44],
+    ["SmB", 0.21 / 2, 3.02],
+    ["HmL", 0.25 / 2, 2.87],
+    ["RmW", 0.26 / 2, 2.15],
+    ["CmA", 0.26 / 2, 1.99],
+    ["MOM", 0.66 / 4, 4.7],
+    ["ITT", 1.66 / 12, 5.67 / 12**0.5],
+    ["LTT", 2.01 / 12, 9.79 / 12**0.5],
+]
+
+if _args.factors:
+    _data = json.loads(open(_args.factors).read())
+    print(f"Loaded factor assumptions from {_args.factors} (sample period: {_data['sample_period']})")
+    factors = np.array([[name, f["mean"], f["std"]] for name, f in _data["factors"].items()])
+else:
+    factors = np.array(_HARDCODED_FACTORS)
 
 factor_labels = list(factors[:, 0])
 factor_mean = factors[:, 1].astype(float)

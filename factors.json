@@ -1,0 +1,44 @@
+{
+  "sample_period": "196307-202601",
+  "factors": {
+    "TER": {
+      "mean": -0.083333,
+      "std": 0.0,
+      "note": "expense ratio drag, set per asset"
+    },
+    "MKT": {
+      "mean": 0.59494,
+      "std": 4.456194
+    },
+    "SmB": {
+      "mean": 0.091738,
+      "std": 3.026823
+    },
+    "HmL": {
+      "mean": 0.145526,
+      "std": 2.972029
+    },
+    "RmW": {
+      "mean": 0.132204,
+      "std": 2.220801
+    },
+    "CmA": {
+      "mean": 0.121418,
+      "std": 2.062814
+    },
+    "MOM": {
+      "mean": 0.148905,
+      "std": 4.173269
+    },
+    "ITT": {
+      "mean": 0.138333,
+      "std": 1.636788,
+      "note": "hardcoded \u2014 update manually"
+    },
+    "LTT": {
+      "mean": 0.1675,
+      "std": 2.82613,
+      "note": "hardcoded \u2014 update manually"
+    }
+  }
+}
