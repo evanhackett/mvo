@@ -1,26 +1,30 @@
 """
 Calculate RRA based off of Lifecycle Investing excel sheet
 """
+
 import argparse
 
 import numpy as np
 
 parser = argparse.ArgumentParser()
-parser.add_argument('max_percent', help='The maximum percent of your net worth you would be willing to put at risk for the chance at doubling your money. Should be between 0 and 50.',
-                    type=float)
+parser.add_argument(
+    "max_percent",
+    help="In a 50/50 coin flip where heads doubles your entire net worth, what is the maximum percent of your net worth you would be willing to lose if it comes up tails? (0–50)",
+    type=float,
+)
 args = parser.parse_args()
 
 
 def get_percent_from_rra(rra):
-    return 1 - (2 - 2**(1 - rra))**(1 / (1 - rra))
+    return 1 - (2 - 2 ** (1 - rra)) ** (1 / (1 - rra))
 
 
 def find_nearest(array: list, value: float):
     """
     Finds the nearest item to value in the array, returning the index.
     """
-    
-    deltas = np.abs(np.array(array)-value)
+
+    deltas = np.abs(np.array(array) - value)
     index = np.argmin(deltas)
 
     return index
@@ -47,5 +51,4 @@ index = find_nearest(percents, percent)
 rra = rras[index]
 rounded = round(rra, 2)
 
-print(f'RRA: {rounded}')
-
+print(f"RRA: {rounded}")
